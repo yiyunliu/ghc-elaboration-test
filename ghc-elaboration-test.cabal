@@ -21,3 +21,4 @@ executable ghc-elaboration-test
                      , ghc
                      , ghc-paths
                      , ghc-boot-th
+  ghc-options:         -Wall
