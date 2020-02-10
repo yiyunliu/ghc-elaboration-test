@@ -1,12 +1,12 @@
 --B.hs
-module B where
+module QQQ where
 
+-- import qualified Data.Semigroup as DS
 import Data.Semigroup
-
 data Thing = Thing
 
-semop :: Sum Int -> Sum Int -> Sum Int
-semop x y = (<>) x y
+-- semop :: DS.Sum Int -> DS.Sum Int -> DS.Sum Int
+-- semop x y = (<>) x y
 
 main = print "Hello, World!"
 
@@ -17,3 +17,7 @@ class YSem a where
 instance YSem Int where
   ymappend = (+)
   lawAssoc _ _ _ = ()
+
+
+testPlus :: Int -> Int
+testPlus x = x + 1
