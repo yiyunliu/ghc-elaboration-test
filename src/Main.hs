@@ -88,7 +88,7 @@ main = do
 example :: (GhcMonad m) => m _
 example = do
   dflags <- getSessionDynFlags
-  let dflags' = foldl xopt_set dflags [ExplicitForAll, Cpp, ImplicitPrelude, MagicHash]
+  let dflags' = foldl xopt_set dflags [FlexibleInstances, ExplicitForAll, Cpp, ImplicitPrelude, MagicHash]
   void
     $          setSessionDynFlags
     $          dflags' { hscTarget = HscInterpreted
@@ -113,7 +113,13 @@ example = do
     `gopt_set` Opt_DeferTypedHoles
   (t, _) <- GHC.typeKind False "forall a. Thing a"
   let (_, m) = splitForAllTys t
-  pure $ tcSplitTyConApp m
+  let (clsTycon, tys) = tcSplitTyConApp m
+  let Just cls = tyConClass_maybe clsTycon
+  let computation = matchGlobalInst dflags' False cls tys
+  withSession $ \hsc_env -> liftIO $ do
+    (_, mb)<- runTcInteractive hsc_env computation
+    pure mb
+      
 
 
   
