@@ -21,4 +21,6 @@ executable ghc-elaboration-test
                      , ghc
                      , ghc-paths
                      , ghc-boot-th
+                     , containers
+                     , mtl
   ghc-options:         -Wall
