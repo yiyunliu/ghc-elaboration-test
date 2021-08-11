@@ -95,6 +95,3 @@ elabRnExpr mode rdr_expr = do
     TM_Inst    -> (True, NoRestrictions, id)
     TM_NoInst  -> (False, NoRestrictions, id)
     TM_Default -> (True, EagerDefaulting, unsetWOptM Opt_WarnTypeDefaults)
-
--- main :: IO ()
--- main = putStrLn "It's over"
